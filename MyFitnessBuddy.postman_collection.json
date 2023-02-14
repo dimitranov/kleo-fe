@@ -1,0 +1,562 @@
+{
+	"info": {
+		"_postman_id": "6daf438d-13df-489a-b261-c1e1a03954f0",
+		"name": "MyFitnessBuddy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Exercises",
+			"item": [
+				{
+					"name": "Create Exercise",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"ffsfsdf\",\n    \"muscle\": \"legs\",\n    \"intensity\": \"high\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/v1/exercises",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"exercises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Exercise by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/v1/exercises/637f747ab0d7cd3b10b6f182",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"exercises",
+								"637f747ab0d7cd3b10b6f182"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Exercises",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/v1/exercises?sortBy=&limit=&page=",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"exercises"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": ""
+								},
+								{
+									"key": "limit",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"JWT\", pm.response.json().tokens.access.token);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dave Smith\",\n    \"email\": \"g_dimitranov_test@abv.bg\",\n    \"password\": \"Inno@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/v1/auth/register",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"JWT\", pm.response.json().tokens.access.token);",
+									"pm.environment.set(\"LOGGED_USER_ID\", pm.response.json().user.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"g_dimitranov_test@abv.bg\",\n    \"password\": \"Inno@123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/v1/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Workouts",
+			"item": [
+				{
+					"name": "Get Workouts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/v1/workouts?sortBy=&limit=&page=",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"workouts"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": ""
+								},
+								{
+									"key": "limit",
+									"value": ""
+								},
+								{
+									"key": "page",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Workouts",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"My custom workout - no sets and reps\",\n    \"style\": \"full_body\",\n    \"level\": \"intermediet\",\n    \"exercises\": [\n        {\n            \"exercise\": \"6381cedc7a6b8a90fd527f51\", \"sets\": 2, \"weights\": [35, 35, 50]\n        },\n        {\n            \"exercise\": \"6381cedc7a6b8a90fd527f4d\"\n        }\n    ],\n    \"creator\":\"6380d21c7d834b8f64aedc0f\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:4000/v1/workouts",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"workouts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Workout By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/workouts/6384a0e8ceb53e7c25b12a66",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"workouts",
+								"6384a0e8ceb53e7c25b12a66"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update by Id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/v1/workouts/6384a0e8ceb53e7c25b12a66",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"workouts",
+								"6384a0e8ceb53e7c25b12a66"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WorkoutSessions",
+			"item": [
+				{
+					"name": "Create Session",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/v1/workout-sessions",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"workout-sessions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Session by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{JWT}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/v1/workout-sessions/6398a2e5a750892b4f94f39f",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"workout-sessions",
+								"6398a2e5a750892b4f94f39f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check for active session",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Search Sessions",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/v1/workout-sessions/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"workout-sessions",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DEV",
+			"item": [
+				{
+					"name": "CLEAR DATABASE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/v1/dev/clear",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"dev",
+								"clear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FILL DATABASE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/v1/dev/fill",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"dev",
+								"fill"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CLEAR ACTIONABLE EXERCISES",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/v1/dev/sets",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"dev",
+								"sets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CLEAR WORKOUT SESSIONS",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/v1/dev/workout-sessions",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"dev",
+								"workout-sessions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CLEAR WORKOUTS",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:4000/v1/dev/workouts",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"dev",
+								"workouts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ActionableExercises",
+			"item": [
+				{
+					"name": "Create AE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"exercise\": \"6381cedc7a6b8a90fd527f51\",\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/v1/actionable-exercises/63971955e344244626476b61",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"actionable-exercises",
+								"63971955e344244626476b61"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update AE",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reps\": 13,\n    \"weight\": 50,\n    \"units\": \"kg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/v1/actionable-exercises/63971955e344244626476b61",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"v1",
+								"actionable-exercises",
+								"63971955e344244626476b61"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
